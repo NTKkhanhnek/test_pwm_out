@@ -1,4 +1,4 @@
-#python .\pwm_simu\pwm_simu.py
+#py -3.11 .\pwm_simu\pwm_simu.py
 
 import tkinter as tk
 from tkinter import ttk
@@ -10,6 +10,10 @@ except ImportError:
 
 
 BAUDRATE = 115200
+UART_PORT = "COM5"
+UART_BYTESIZE = 8
+UART_PARITY = "N"
+UART_STOPBITS = 1
 MOTOR_MIN = 1
 MOTOR_MAX = 4
 PULSE_MIN = 1100
@@ -26,7 +30,7 @@ class PwmSimulator:
         self.uart = None
         self.motor_var = tk.IntVar(value=1)
         self.pulse_var = tk.IntVar(value=1100)
-        self.port_var = tk.StringVar(value="COM3")
+        self.port_var = tk.StringVar(value=UART_PORT)
         self.auto_send_var = tk.BooleanVar(value=True)
         self.status_var = tk.StringVar(value="Disconnected.")
         self.updating_ui = False
@@ -162,14 +166,23 @@ class PwmSimulator:
             return
 
         try:
-            self.uart = serial.Serial(self.port_var.get(), BAUDRATE, timeout=0.1)
+            self.uart = serial.Serial(
+                port=self.port_var.get(),
+                baudrate=BAUDRATE,
+                bytesize=UART_BYTESIZE,
+                parity=UART_PARITY,
+                stopbits=UART_STOPBITS,
+                timeout=0.1,
+            )
         except serial.SerialException as exc:
             self.uart = None
             self.status_var.set(f"Cannot open port: {exc}")
             return
 
         self.connect_button.config(text="Disconnect")
-        self.status_var.set(f"Connected to {self.port_var.get()} @ {BAUDRATE}.")
+        self.status_var.set(
+            f"Connected to {self.port_var.get()} @ {BAUDRATE} 8N1."
+        )
 
     def send_if_auto(self):
         if self.auto_send_var.get():
