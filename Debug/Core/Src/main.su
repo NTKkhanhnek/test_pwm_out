@@ -1,0 +1,8 @@
+main.c:15:16:is_digit	16	static
+main.c:20:16:parse_uint16	24	static
+main.c:52:16:parse_command	24	static
+main.c:97:17:value_to_pulse	16	static
+main.c:108:16:pulse_to_percent	24	static
+main.c:119:13:send_status	16	static
+main.c:130:13:send_help	8	static
+main.c:138:5:main	56	static

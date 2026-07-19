@@ -1,0 +1,8 @@
+uart2.c:28:17:uart2_calculate_brr	16	static
+uart2.c:33:6:uart2_init	16	static
+uart2.c:60:6:uart2_send_char	16	static
+uart2.c:66:5:uart2_read_char	16	static
+uart2.c:82:6:uart2_send_string	16	static
+uart2.c:96:6:uart2_send_uint	32	static
+uart2.c:119:6:uart2_send_int	16	static
+uart2.c:130:6:uart2_send_float	32	static
