@@ -54,6 +54,7 @@ int main(void)
         {
             debug_motor = motor;
             debug_pulse_width = pulse_width;
+            //control_motor((uint8_t)motor, pulse_width);
         }
         else
         {
