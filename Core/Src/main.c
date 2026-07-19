@@ -3,6 +3,9 @@
 #include "pwm.h"
 #include "uart2.h"
 
+volatile uint16_t debug_motor = 0;
+volatile uint16_t debug_pulse_width = 0;
+
 static uint16_t uart2_receive_uint(void)
 {
     char ch;
@@ -49,11 +52,8 @@ int main(void)
 
         if ((motor >= 1) && (motor <= 4) && (pulse_width >= PWM_MIN_US) && (pulse_width <= PWM_MAX_US))
         {
-            control_motor((uint8_t)motor, pulse_width);
-            uart2_send_uint(motor);
-            uart2_send_string(" ");
-            uart2_send_uint(pulse_width);
-            uart2_send_string("\r\n");
+            debug_motor = motor;
+            debug_pulse_width = pulse_width;
         }
         else
         {
